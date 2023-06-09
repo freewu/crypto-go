@@ -1,0 +1,31 @@
+package padding
+
+import "errors"
+
+/**
+不填充，需要求原始数据必须就是满足分组要求的数据，不满足的时候，无法使用该模式
+
+# 填充之前:
+
+    0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0x0A 0x0B 0x0C 0x0D 0x0E 0x0F 0x0
+
+# 填充之后:
+
+    0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0x0A 0x0B 0x0C 0x0D 0x0E 0x0F 0x0
+
+不满足的时候 会直接抛出异常
+*/
+
+// NoPaddingPack no padding pack 处理
+func NoPaddingPack(data []byte, blockSize int) ([]byte, error) {
+	// 不满足取模时,需要抛出异常  原始数据必须满足分组要求
+	if 0 != (len(data) % blockSize) {
+		return nil, errors.New("不满足分组要求")
+	}
+	return data, nil
+}
+
+// NoPaddingUnPack no padding unpack 处理
+func NoPaddingUnPack(data []byte) []byte {
+	return data
+}
