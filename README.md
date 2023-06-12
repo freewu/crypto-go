@@ -1,6 +1,6 @@
 # crypto-go
  
-    封装 golang crypto,提高易用性
+    封装 golang crypto 提高易用性
 
 # 使用
 ## Hash
@@ -21,6 +21,21 @@ crypto.HmacSHA256("admin", "123456") // 69c6fda19329b530a43354615c573bf640de9d59
 import "github.com/freewu/crypto-go/des"
 
 instance := des.GetInstance("CBC/PKCS7Padding")
+encrypted, err := instance.Encrypt(data, key, iv)
+fmt.Printf("CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
+fmt.Printf("CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
+
+decrypted, err := instance.Decrypt(encrypted, key, iv)
+fmt.Printf("CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
+fmt.Printf("CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
+fmt.Printf("CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
+```
+
+## AES
+```go
+import "github.com/freewu/crypto-go/aes"
+
+instance := aes.GetInstance("CBC/PKCS7Padding")
 encrypted, err := instance.Encrypt(data, key, iv)
 fmt.Printf("CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
 fmt.Printf("CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
