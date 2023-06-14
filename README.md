@@ -82,3 +82,22 @@ fmt.Printf("AES/CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypte
 fmt.Printf("AES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
 ```
 
+## RC4
+```go
+import "github.com/freewu/crypto-go/rc4"
+
+data := []byte("hello world") // 定义明文
+key := []byte("12345678") // 密钥
+
+// 加密
+encrypted, err := rc4.Encrypt(data, key)
+fmt.Printf("Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
+fmt.Printf("Encrypt hex: %v\n", hex.EncodeToString(encrypted))
+
+// 解密
+decrypted, err := rc4.Decrypt(encrypted, key)
+fmt.Printf("Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
+fmt.Printf("Decrypt hex: %v\n", hex.EncodeToString(decrypted))
+fmt.Printf("Decrypt string: %v\n", string(decrypted))
+```
+
