@@ -2,6 +2,27 @@
  
     封装 golang crypto 提高易用性
 
+# AES / DES / 3DES 加密模式
+```
+ECB 电码本模式 Electronic Codebook Book 
+CBC 密码分组链接模式 Cipher Block Chaining
+CTR 计算器模式 Counter 
+CFB 密码反馈模式 Cipher FeedBack
+OFB 输出反馈模式 Output FeedBack
+```
+
+# AES / DES / 3DES 填充方式
+```
+NoPadding
+ZeroPadding
+PKCS7Padding
+PKCS5Padding
+X923Padding
+ISO78164Padding
+ISO10126Padding
+TBCPadding
+```
+
 # 使用
 ## Hash
 ```go
@@ -22,13 +43,28 @@ import "github.com/freewu/crypto-go/des"
 
 instance := des.GetInstance("CBC/PKCS7Padding")
 encrypted, err := instance.Encrypt(data, key, iv)
-fmt.Printf("CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
-fmt.Printf("CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
+fmt.Printf("DES/CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
+fmt.Printf("DES/CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
 
 decrypted, err := instance.Decrypt(encrypted, key, iv)
-fmt.Printf("CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
-fmt.Printf("CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
-fmt.Printf("CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
+fmt.Printf("DES/CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
+fmt.Printf("DES/CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
+fmt.Printf("DES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
+```
+
+## 3DES
+```go
+import "github.com/freewu/crypto-go/desede"
+
+instance := desede.GetInstance("CBC/PKCS7Padding")
+encrypted, err := instance.Encrypt(data, key, iv)
+fmt.Printf("3DES/CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
+fmt.Printf("3DES/CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
+
+decrypted, err := instance.Decrypt(encrypted, key, iv)
+fmt.Printf("3DES/CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
+fmt.Printf("3DES/CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
+fmt.Printf("3DES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
 ```
 
 ## AES
@@ -37,12 +73,12 @@ import "github.com/freewu/crypto-go/aes"
 
 instance := aes.GetInstance("CBC/PKCS7Padding")
 encrypted, err := instance.Encrypt(data, key, iv)
-fmt.Printf("CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
-fmt.Printf("CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
+fmt.Printf("AES/CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
+fmt.Printf("AES/CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
 
 decrypted, err := instance.Decrypt(encrypted, key, iv)
-fmt.Printf("CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
-fmt.Printf("CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
-fmt.Printf("CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
+fmt.Printf("AES/CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
+fmt.Printf("AES/CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
+fmt.Printf("AES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
 ```
 

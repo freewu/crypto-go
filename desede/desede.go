@@ -1,33 +1,33 @@
-package aes
+package desede
 
 import (
-	"crypto/aes"
 	"crypto/cipher"
+	"crypto/des"
 	"errors"
 	"github.com/freewu/crypto-go/padding"
 	"strings"
 )
 
-type AES struct {
+type TripleDES struct {
 	Mode    string // 加密模式  ECB / CBC / CFB / OFB / CTR  default: ECB
-	Padding string // 填充模式 NoPadding / ZeroPadding / PKCS7Padding / PKCS5Padding
+	Padding string // 填充模式 NoPadding / ZeroPadding / PKCS7 / PKCS5
 }
 
 // GetInstance 实例化一个 des 对象  如: GetInstance("ECB/PKCS7Padding")
-func GetInstance(str string) *AES {
+func GetInstance(str string) *TripleDES {
 	if str != "" {
 		arr := strings.Split(str, "/")
 		// todo 需要验证处理
 		if len(arr) == 1 {
-			return &AES{Mode: arr[0], Padding: "PKCS7Padding"}
+			return &TripleDES{Mode: arr[0], Padding: "PKCS7Padding"}
 		}
-		return &AES{Mode: arr[0], Padding: arr[1]}
+		return &TripleDES{Mode: arr[0], Padding: arr[1]}
 	}
-	return &AES{Mode: "ECB", Padding: "PKCS7Padding"}
+	return &TripleDES{Mode: "ECB", Padding: "PKCS7Padding"}
 }
 
 // 补码处理
-func (d *AES) padding(data []byte, blockSize int) ([]byte, error) {
+func (d *TripleDES) padding(data []byte, blockSize int) ([]byte, error) {
 	switch d.Padding {
 	case "NoPadding":
 		return padding.NoPaddingPack(data, blockSize)
@@ -50,7 +50,7 @@ func (d *AES) padding(data []byte, blockSize int) ([]byte, error) {
 }
 
 // 去掉补码处理
-func (d *AES) unpadding(data []byte) ([]byte, error) {
+func (d *TripleDES) unpadding(data []byte) ([]byte, error) {
 	switch d.Padding {
 	case "NoPadding":
 		return padding.NoPaddingUnPack(data), nil
@@ -73,9 +73,9 @@ func (d *AES) unpadding(data []byte) ([]byte, error) {
 }
 
 // Encrypt 加密处理
-func (d *AES) Encrypt(data []byte, key []byte, iv []byte) ([]byte, error) {
+func (d *TripleDES) Encrypt(data []byte, key []byte, iv []byte) ([]byte, error) {
 	// 将字节秘钥转换成block快
-	block, err := aes.NewCipher(key)
+	block, err := des.NewTripleDESCipher(key)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ func (d *AES) Encrypt(data []byte, key []byte, iv []byte) ([]byte, error) {
 		// 加密明文,加密后的数据放到数组中
 		blockMode.CryptBlocks(encrypted, data)
 		return encrypted, nil
-	case "ECB": // go 的 DES 默认隐藏了 ECB模式, 因为go认为ECB不安全, 所以不建议使用,就隐藏了
+	case "ECB": // go 默认隐藏了 ECB模式, 因为go认为ECB不安全, 所以不建议使用,就隐藏了
 		bs := block.BlockSize()
 		dst := encrypted
 		for len(data) > 0 {
@@ -123,9 +123,9 @@ func (d *AES) Encrypt(data []byte, key []byte, iv []byte) ([]byte, error) {
 }
 
 // Decrypt 解密处理
-func (d *AES) Decrypt(data []byte, key []byte, iv []byte) ([]byte, error) {
+func (d *TripleDES) Decrypt(data []byte, key []byte, iv []byte) ([]byte, error) {
 	// 将字节秘钥转换成block快
-	block, err := aes.NewCipher(key)
+	block, err := des.NewTripleDESCipher(key)
 	if err != nil {
 		return nil, err
 	}

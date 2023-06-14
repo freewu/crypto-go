@@ -21,7 +21,6 @@ ZeroPadding 意思就是在数据块末尾补 0x00
 
     example 2:
     0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0x0A 0x0B 0x0C 0x0D 0x0E 0x0F 0x01
-    0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 // 完整分组了也需要补一整个分组的0x00
 
 
 使用 ZeroPadding 填充时，没办法区分真实数据与填充数据，所以只适合以\0结尾的字符串加解密。
@@ -32,9 +31,9 @@ ZeroPadding 意思就是在数据块末尾补 0x00
 func ZeroPaddingPack(data []byte, blockSize int) ([]byte, error) {
 	// 计算需要补 0 的个数
 	padding := blockSize - len(data)%blockSize
-	// 如果刚开始已经完整分组了也需要补一整个分组的
+	// 数据长度不对齐时使用0填充，否则不填充
 	if padding == 0 {
-		padding = blockSize
+		return data, nil
 	}
 	paddingText := bytes.Repeat([]byte{byte(0)}, padding)
 	return append(data, paddingText...), nil

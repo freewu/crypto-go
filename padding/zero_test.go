@@ -54,7 +54,6 @@ func TestZeroPaddingPack2(t *testing.T) {
 	pack, _ := ZeroPaddingPack(b, 8)
 	e := []byte{
 		byte('1'), byte('2'), byte('3'), byte('4'), byte('5'), byte('6'), byte('7'), byte('8'),
-		byte(0), byte(0), byte(0), byte(0), byte(0), byte(0), byte(0), byte(0),
 	}
 	//fmt.Printf("e = %v,pack = %v", e, pack)
 	if !bytes.Equal(e, pack) {
@@ -66,7 +65,6 @@ func TestZeroPaddingPack2(t *testing.T) {
 func TestZeroPaddingUnPack2(t *testing.T) {
 	b := []byte{
 		byte('1'), byte('2'), byte('3'), byte('4'), byte('5'), byte('6'), byte('7'), byte('8'),
-		byte(0), byte(0), byte(0), byte(0), byte(0), byte(0), byte(0), byte(0),
 	}
 	unpack := ZeroPaddingUnPack(b)
 	e := "12345678"
