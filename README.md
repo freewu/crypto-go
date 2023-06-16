@@ -28,13 +28,29 @@ TBCPadding
 ```go
 import "github.com/freewu/crypto-go"
 
-crypto.MD5("admin") // 21232f297a57a5a743894a0e4a801fc3
-crypto.SHA1("admin") // d033e22ae348aeb5660fc2140aec35850c4da997
-crypto.SHA256("admin") // 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+fmt.Printf("%v\n",crypto.MD5("admin")) // 21232f297a57a5a743894a0e4a801fc3
+fmt.Printf("%v\n",crypto.SHA1("admin")) // d033e22ae348aeb5660fc2140aec35850c4da997
+fmt.Printf("%v\n",crypto.SHA256("admin")) // 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
 
-crypto.HmacMD5("admin", "123456") // 20238ad293024e2ea2f505db927cd52e
-crypto.HmacSHA1("admin", "123456") // 3c39afa93e0b12c28f1f08b18488ebd4ad2e5858
-crypto.HmacSHA256("admin", "123456") // 69c6fda19329b530a43354615c573bf640de9d59a814d8cf3a9760c2e5c614d8
+fmt.Printf("%v\n",crypto.HmacMD5("admin", "123456")) // 20238ad293024e2ea2f505db927cd52e
+fmt.Printf("%v\n",crypto.HmacSHA1("admin", "123456")) // 3c39afa93e0b12c28f1f08b18488ebd4ad2e5858
+fmt.Printf("%v\n",crypto.HmacSHA256("admin", "123456")) // 69c6fda19329b530a43354615c573bf640de9d59a814d8cf3a9760c2e5c614d8
+```
+
+## PBKDF2
+```go
+import "github.com/freewu/crypto-go"
+
+password := "admin"
+salt := "12345678"
+keyLength := 32
+iter := 1000
+
+fmt.Printf("%v\n", crypto.PBKDF2(password, salt, iter, keyLength, sha256.New)) // e882380cbc438cf60f74a127d3291fe4
+fmt.Printf("%v\n", crypto.PBKDF2MD5(password, salt, iter, keyLength)) // 9d47fcd48a33ddedaa9d2912e67c177f
+fmt.Printf("%v\n", crypto.PBKDF2SHA1(password, salt, iter, keyLength)) // 40229bb690c4670a1e5110eb740b5020
+fmt.Printf("%v\n", crypto.PBKDF2SHA256(password, salt, iter, keyLength)) // e882380cbc438cf60f74a127d3291fe4
+fmt.Printf("%v\n", crypto.PBKDF2SHA512(password, salt, iter, keyLength)) // 47d32ed52f2d15fa4128456b5747dd7b
 ```
 
 ## DES
