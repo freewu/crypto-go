@@ -58,11 +58,11 @@ fmt.Printf("%v\n", crypto.PBKDF2SHA512(password, salt, iter, keyLength)) // 47d3
 import "github.com/freewu/crypto-go/des"
 
 instance := des.GetInstance("CBC/PKCS7Padding")
-encrypted, err := instance.Encrypt(data, key, iv)
+encrypted, _ := instance.Encrypt(data, key, iv)
 fmt.Printf("DES/CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
 fmt.Printf("DES/CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
 
-decrypted, err := instance.Decrypt(encrypted, key, iv)
+decrypted, _ := instance.Decrypt(encrypted, key, iv)
 fmt.Printf("DES/CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
 fmt.Printf("DES/CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
 fmt.Printf("DES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
@@ -73,11 +73,11 @@ fmt.Printf("DES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
 import "github.com/freewu/crypto-go/desede"
 
 instance := desede.GetInstance("CBC/PKCS7Padding")
-encrypted, err := instance.Encrypt(data, key, iv)
+encrypted, _ := instance.Encrypt(data, key, iv)
 fmt.Printf("3DES/CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
 fmt.Printf("3DES/CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
 
-decrypted, err := instance.Decrypt(encrypted, key, iv)
+decrypted, _ := instance.Decrypt(encrypted, key, iv)
 fmt.Printf("3DES/CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
 fmt.Printf("3DES/CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
 fmt.Printf("3DES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
@@ -88,11 +88,11 @@ fmt.Printf("3DES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
 import "github.com/freewu/crypto-go/aes"
 
 instance := aes.GetInstance("CBC/PKCS7Padding")
-encrypted, err := instance.Encrypt(data, key, iv)
+encrypted, _ := instance.Encrypt(data, key, iv)
 fmt.Printf("AES/CBC/PKCS7Padding Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
 fmt.Printf("AES/CBC/PKCS7Padding Encrypt hex: %v\n", hex.EncodeToString(encrypted))
 
-decrypted, err := instance.Decrypt(encrypted, key, iv)
+decrypted, _ := instance.Decrypt(encrypted, key, iv)
 fmt.Printf("AES/CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
 fmt.Printf("AES/CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
 fmt.Printf("AES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
@@ -106,12 +106,12 @@ data := []byte("hello world") // 定义明文
 key := []byte("12345678") // 密钥
 
 // 加密
-encrypted, err := rc4.Encrypt(data, key)
+encrypted, _ := rc4.Encrypt(data, key)
 fmt.Printf("Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
 fmt.Printf("Encrypt hex: %v\n", hex.EncodeToString(encrypted))
 
 // 解密
-decrypted, err := rc4.Decrypt(encrypted, key)
+decrypted, _ := rc4.Decrypt(encrypted, key)
 fmt.Printf("Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
 fmt.Printf("Decrypt hex: %v\n", hex.EncodeToString(decrypted))
 fmt.Printf("Decrypt string: %v\n", string(decrypted))
