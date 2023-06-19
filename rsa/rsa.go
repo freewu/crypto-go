@@ -7,6 +7,7 @@ import (
 	"encoding/pem"
 	"errors"
 	_ "golang.org/x/crypto/ssh"
+	"hash"
 )
 
 type RSA struct {
@@ -14,6 +15,7 @@ type RSA struct {
 	// PKCS8:  公钥使用  PKCS1 私钥使用 PKCS8
 	Type   string // 类型 PKCS1 / PKCS8
 	Format string // 格式 pem
+
 }
 
 func GetInstance(t string) *RSA {
@@ -21,6 +23,8 @@ func GetInstance(t string) *RSA {
 	case "PKCS1":
 		return &RSA{Type: "PKCS1", Format: "pem"}
 	case "PKCS8":
+		return &RSA{Type: "PKCS8", Format: "pem"}
+	case "OAEP":
 		return &RSA{Type: "PKCS8", Format: "pem"}
 	}
 	return &RSA{Type: "PKCS1", Format: "pem"}
@@ -82,11 +86,24 @@ func (r *RSA) Encrypt(data string, key []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	cipherText, err := rsa.EncryptPKCS1v15(rand.Reader, publicKeyInterface, []byte(data))
+	result, err := rsa.EncryptPKCS1v15(rand.Reader, publicKeyInterface, []byte(data))
 	if err != nil {
 		return nil, err
 	}
-	return cipherText, nil
+	return result, nil
+}
+
+// OAEPEncrypt OAEP 加密
+func (r *RSA) OAEPEncrypt(data string, key []byte, hash hash.Hash) ([]byte, error) {
+	// pem解码
+	block, _ := pem.Decode(key)
+	// x509解码
+	publicKeyInterface, err := x509.ParsePKCS1PublicKey(block.Bytes)
+	if err != nil {
+		return nil, err
+	}
+	result, err := rsa.EncryptOAEP(hash, rand.Reader, publicKeyInterface, []byte(data), nil)
+	return result, nil
 }
 
 // Decrypt 解密
@@ -116,6 +133,37 @@ func (r *RSA) Decrypt(data []byte, key []byte) ([]byte, error) {
 			return nil, err
 		}
 		return cipherText, nil
+	}
+	return nil, errors.New("so such type")
+}
+
+// OAEPDecrypt OAEP 解密
+func (r *RSA) OAEPDecrypt(data []byte, key []byte, hash hash.Hash) ([]byte, error) {
+	// pem解码
+	block, _ := pem.Decode(key)
+	switch r.Type {
+	case "PKCS1":
+		// x509解码
+		privateKey, err := x509.ParsePKCS1PrivateKey(block.Bytes)
+		if err != nil {
+			return nil, err
+		}
+		result, err := rsa.DecryptOAEP(hash, rand.Reader, privateKey, data, nil)
+		if err != nil {
+			return nil, err
+		}
+		return result, nil
+	case "PKCS8":
+		privateKey, err := x509.ParsePKCS8PrivateKey(block.Bytes)
+		if err != nil {
+			return nil, err
+		}
+		rsaKey, _ := privateKey.(*rsa.PrivateKey)
+		result, err := rsa.DecryptOAEP(hash, rand.Reader, rsaKey, data, nil)
+		if err != nil {
+			return nil, err
+		}
+		return result, nil
 	}
 	return nil, errors.New("so such type")
 }
