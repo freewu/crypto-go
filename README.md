@@ -117,3 +117,24 @@ fmt.Printf("Decrypt hex: %v\n", hex.EncodeToString(decrypted))
 fmt.Printf("Decrypt string: %v\n", string(decrypted))
 ```
 
+## RSA
+```go
+import "github.com/freewu/crypto-go/rsa"
+
+instance := rsa.GetInstance("PKCS1") // PKCS1 & PKCS8
+// 生成公钥 & 私钥
+pri, pub, _ := instance.GenerateKey(1024)
+fmt.Printf("private key: %v\n", string(pri))
+fmt.Printf("public key: %v\n", string(pub))
+
+// 使用公钥加密
+data := "bluefrog"
+pubEncrypt, _ := instance.Encrypt(data, pub)
+fmt.Printf("PKCS1 public key encrypt hex: %v\n", hex.EncodeToString(pubEncrypt))
+fmt.Printf("PKCS1 public key encrypt base64: %v\n", base64.StdEncoding.EncodeToString(pubEncrypt))
+
+// 使用私钥解密
+priDecrypt, _ := instance.Decrypt(pubEncrypt, pri)
+fmt.Printf("PKCS1 private key decrypt: %v\n", string(priDecrypt))
+```
+
