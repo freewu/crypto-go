@@ -155,3 +155,16 @@ priDecrypt, _ := instance.OAEPDecrypt(pubEncrypt, pri, sha256.New())
 fmt.Printf("PKCS8 private key decrypt: %v\n", string(priDecrypt))
 ```
 
+## TEA
+```go
+import "github.com/freewu/crypto-go/tea"
+// 加密
+chipertext, _ := tea.Encrypt([]byte("bluefrog"), []byte("1234567812345678"), 64)
+fmt.Printf("tea encrypt hex: %v\n", hex.EncodeToString(chipertext))
+fmt.Printf("tea encrypt base64: %v\n", base64.StdEncoding.EncodeToString(chipertext))
+// 解密
+result, _ := tea.Decrypt(chipertext, []byte("1234567812345678"), 64)
+fmt.Printf("tea decrypt hex: %v\n", hex.EncodeToString(result))
+fmt.Printf("tea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(result))
+fmt.Printf("tea decrypt: %v\n", string(result))
+```
