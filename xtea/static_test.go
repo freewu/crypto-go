@@ -32,16 +32,16 @@ func TestStaticEncryptDecrypt(t *testing.T) {
 	if err != nil {
 		t.Errorf("throw exception %v\n", err)
 	}
-	fmt.Printf("tea encrypt hex: %v\n", hex.EncodeToString(chipertext))
-	fmt.Printf("tea encrypt base64: %v\n", base64.StdEncoding.EncodeToString(chipertext))
+	fmt.Printf("xtea encrypt hex: %v\n", hex.EncodeToString(chipertext))
+	fmt.Printf("xtea encrypt base64: %v\n", base64.StdEncoding.EncodeToString(chipertext))
 	// 解密
 	result, err := Decrypt(chipertext, []byte("1234567812345678"))
 	if err != nil {
 		t.Errorf("throw exception %v\n", err)
 	}
-	fmt.Printf("tea decrypt hex: %v\n", hex.EncodeToString(result))
-	fmt.Printf("tea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(result))
-	fmt.Printf("tea decrypt: %v\n", string(result))
+	fmt.Printf("xtea decrypt hex: %v\n", hex.EncodeToString(result))
+	fmt.Printf("xtea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(result))
+	fmt.Printf("xtea decrypt: %v\n", string(result))
 }
 
 func TestStaticEncryptDecryptPadding(t *testing.T) {
@@ -52,16 +52,16 @@ func TestStaticEncryptDecryptPadding(t *testing.T) {
 	//if err != nil {
 	//	t.Errorf("throw exception %v\n", err)
 	//}
-	//fmt.Printf("tea encrypt hex: %v\n", hex.EncodeToString(chipertext))
-	//fmt.Printf("tea encrypt base64: %v\n", base64.StdEncoding.EncodeToString(chipertext))
+	//fmt.Printf("xtea encrypt hex: %v\n", hex.EncodeToString(chipertext))
+	//fmt.Printf("xtea encrypt base64: %v\n", base64.StdEncoding.EncodeToString(chipertext))
 	//// 解密
 	//result, err := Decrypt(chipertext, []byte("1234567812345678"), 64)
 	//if err != nil {
 	//	t.Errorf("throw exception %v\n", err)
 	//}
-	//fmt.Printf("tea decrypt hex: %v\n", hex.EncodeToString(result))
-	//fmt.Printf("tea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(result))
-	//fmt.Printf("tea decrypt: %v\n", string(result))
+	//fmt.Printf("xtea decrypt hex: %v\n", hex.EncodeToString(result))
+	//fmt.Printf("xtea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(result))
+	//fmt.Printf("xtea decrypt: %v\n", string(result))
 
 	// 自己做 填充处理
 	pack, _ := padding.PKCS5PaddingPack([]byte("admin"), 8)
@@ -70,15 +70,15 @@ func TestStaticEncryptDecryptPadding(t *testing.T) {
 	if err != nil {
 		t.Errorf("throw exception %v\n", err)
 	}
-	fmt.Printf("tea encrypt hex: %v\n", hex.EncodeToString(chipertext))
-	fmt.Printf("tea encrypt base64: %v\n", base64.StdEncoding.EncodeToString(chipertext))
+	fmt.Printf("xtea encrypt hex: %v\n", hex.EncodeToString(chipertext))
+	fmt.Printf("xtea encrypt base64: %v\n", base64.StdEncoding.EncodeToString(chipertext))
 	// 解密
 	result, err := Decrypt(chipertext, []byte("1234567812345678"))
 	if err != nil {
 		t.Errorf("throw exception %v\n", err)
 	}
 	unpack := padding.PKCS5PaddingUnPack(result)
-	fmt.Printf("tea decrypt hex: %v\n", hex.EncodeToString(unpack))
-	fmt.Printf("tea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(unpack))
-	fmt.Printf("tea decrypt: %v\n", string(unpack))
+	fmt.Printf("xtea decrypt hex: %v\n", hex.EncodeToString(unpack))
+	fmt.Printf("xtea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(unpack))
+	fmt.Printf("xtea decrypt: %v\n", string(unpack))
 }

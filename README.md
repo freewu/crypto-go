@@ -182,3 +182,17 @@ fmt.Printf("xtea decrypt hex: %v\n", hex.EncodeToString(result))
 fmt.Printf("xtea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(result))
 fmt.Printf("xtea decrypt: %v\n", string(result))
 ```
+
+## XXTEA
+```go
+import "github.com/freewu/crypto-go/xxtea"
+// 加密
+chipertext, _ := xxtea.Encrypt([]byte("bluefrog"), []byte("1234567812345678"))
+fmt.Printf("xxtea encrypt hex: %v\n", hex.EncodeToString(chipertext))
+fmt.Printf("xxtea encrypt base64: %v\n", base64.StdEncoding.EncodeToString(chipertext))
+// 解密
+result, _ := xxtea.Decrypt(chipertext, []byte("1234567812345678"))
+fmt.Printf("xxtea decrypt hex: %v\n", hex.EncodeToString(result))
+fmt.Printf("xxtea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(result))
+fmt.Printf("xxtea decrypt: %v\n", string(result))
+```
