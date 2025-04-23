@@ -10,5 +10,6 @@ require (
 
 require (
 	github.com/euphratesdata/go-bigmath v0.0.0-20170130043953-c75ff338001b // indirect
+	github.com/tjfoc/gmsm v1.4.1 // indirect
 	golang.org/x/sys v0.9.0 // indirect
 )

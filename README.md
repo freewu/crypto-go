@@ -31,6 +31,7 @@ import "github.com/freewu/crypto-go"
 fmt.Printf("%v\n",crypto.MD5("admin")) // 21232f297a57a5a743894a0e4a801fc3
 fmt.Printf("%v\n",crypto.SHA1("admin")) // d033e22ae348aeb5660fc2140aec35850c4da997
 fmt.Printf("%v\n",crypto.SHA256("admin")) // 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+fmt.Printf("%v\n",crypto.SM3("admin")) // 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
 
 fmt.Printf("%v\n",crypto.HmacMD5("admin", "123456")) // 20238ad293024e2ea2f505db927cd52e
 fmt.Printf("%v\n",crypto.HmacSHA1("admin", "123456")) // 3c39afa93e0b12c28f1f08b18488ebd4ad2e5858
@@ -195,4 +196,23 @@ result, _ := xxtea.Decrypt(chipertext, []byte("1234567812345678"))
 fmt.Printf("xxtea decrypt hex: %v\n", hex.EncodeToString(result))
 fmt.Printf("xxtea decrypt base64: %v\n", base64.StdEncoding.EncodeToString(result))
 fmt.Printf("xxtea decrypt: %v\n", string(result))
+```
+
+## 使用第三方库说明
+```
+# golang.org/x/crypto
+
+    xtea 加解密算法
+
+# github.com/tjfoc/gmsm
+    
+    国密算法 sm2 / sm3 / sm4 封装
+    
+# github.com/lf777/go-rc5
+
+    RC5 加解密算法
+
+# github.com/xxtea/xxtea-go
+
+    xxtea 加解密算法
 ```
