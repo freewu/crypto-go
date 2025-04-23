@@ -15,7 +15,7 @@ import (
 
 func TestEncryptDecrypt(t *testing.T) {
 	instance := GetInstance(16, 32)
-	encrypted, err := instance.Encrypt([]byte("bluefrog123"), []byte("123456"))
+	encrypted, err := instance.Encrypt([]byte("bluefrog"), []byte("123456"))
 	if err != nil {
 		panic(err)
 	}

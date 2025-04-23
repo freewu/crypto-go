@@ -23,6 +23,15 @@ ISO10126Padding
 TBCPadding
 ```
 
+# SM4 加密模式
+```
+ECB 电码本模式 Electronic Codebook Book 
+CBC 密码分组链接模式 Cipher Block Chaining
+CTR 计算器模式 Counter 
+CFB 密码反馈模式 Cipher FeedBack
+OFB 输出反馈模式 Output FeedBack
+```
+
 # 使用
 ## Hash
 ```go
@@ -97,6 +106,21 @@ decrypted, _ := instance.Decrypt(encrypted, key, iv)
 fmt.Printf("AES/CBC/PKCS7Padding Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
 fmt.Printf("AES/CBC/PKCS7Padding Decrypt hex: %v\n", hex.EncodeToString(decrypted))
 fmt.Printf("AES/CBC/PKCS7Padding Decrypt string: %v\n", string(decrypted))
+```
+
+## SM4
+```go
+import "github.com/freewu/crypto-go/sm4"
+
+instance = GetInstance("ECB")
+encrypted, _ = instance.Encrypt(data, key, iv)
+fmt.Printf("ECB Encrypt base64: %v\n", base64.StdEncoding.EncodeToString(encrypted))
+fmt.Printf("ECB Encrypt hex: %v\n", hex.EncodeToString(encrypted))
+
+decrypted, _ = instance.Decrypt(encrypted, key, iv)
+fmt.Printf("ECB Decrypt base64: %v\n", base64.StdEncoding.EncodeToString(decrypted))
+fmt.Printf("ECB Decrypt hex: %v\n", hex.EncodeToString(decrypted))
+fmt.Printf("ECB Decrypt string: %v\n", string(decrypted))
 ```
 
 ## RC4
