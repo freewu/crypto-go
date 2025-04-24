@@ -15,7 +15,6 @@ type RSA struct {
 	// PKCS8:  公钥使用  PKCS1 私钥使用 PKCS8
 	Type   string // 类型 PKCS1 / PKCS8
 	Format string // 格式 pem
-
 }
 
 func GetInstance(t string) *RSA {

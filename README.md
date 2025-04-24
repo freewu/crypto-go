@@ -27,7 +27,6 @@ TBCPadding
 ```
 ECB 电码本模式 Electronic Codebook Book 
 CBC 密码分组链接模式 Cipher Block Chaining
-CTR 计算器模式 Counter 
 CFB 密码反馈模式 Cipher FeedBack
 OFB 输出反馈模式 Output FeedBack
 ```
@@ -178,6 +177,25 @@ fmt.Printf("PKCS8 public key encrypt base64: %v\n", base64.StdEncoding.EncodeToS
 // 使用私钥解密
 priDecrypt, _ := instance.OAEPDecrypt(pubEncrypt, pri, sha256.New())
 fmt.Printf("PKCS8 private key decrypt: %v\n", string(priDecrypt))
+```
+
+## SM4 国密
+```go
+import "github.com/freewu/crypto-go/m2"
+
+instance := sm2.GetInstance()
+// 生成公钥 & 私钥
+pri, pub, _ := instance.GenerateKey(nil)
+
+// 使用公钥加密
+data := "bluefrog"
+pubEncrypt, _ := instance.Encrypt(data, pub)
+fmt.Printf("public key encrypt hex: %v\n", hex.EncodeToString(pubEncrypt))
+fmt.Printf("public key encrypt base64: %v\n", base64.StdEncoding.EncodeToString(pubEncrypt))
+
+// 使用私钥解密
+priDecrypt, _ := instance.Decrypt(pubEncrypt, pri, nil)
+fmt.Printf("private key decrypt: %v\n", string(priDecrypt))
 ```
 
 ## TEA
